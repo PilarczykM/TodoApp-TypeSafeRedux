@@ -10,16 +10,21 @@ Czym są Akcje, Reducery, Stor.
 W jaki sposób przygotować projekt by mozna było w łatwy i przyjemny sposob korzystać z jego pełnej mocy.
 
 ## Struktura Projektu
-
--src
-├── App
-│   ├── App.css
-│   └── App.tsx
-├── store
-│   ├── todo
-│   │   ├── actions.ts
-│   │   └── types.ts
-│   └── index.ts
+    .
+    ├── public                      # Główny folder do ktorego wstrzykiwany jest React.
+    |   ├── index.html              # Główny plik do którego React jest hookowany.
+    |   └── ...
+    ├── src                         # Główny folder w którym najwiecej czasu sie spędza
+    |   ├── App                     # Folder komponentu APP
+    │   │    ├── App.css            # Style dla komponentu APP
+    │   │    └── App.tsx            # Główny plik komponentu APP, to w nim znajduje się logika
+    │   ├── store                   # Folder w ktorym przechowywany jest store redux aplikacji
+    │   │    ├── todos              # Główny plik dla store Todos
+    │   │    │    ├── actions.ts    # Plik w którym są typy akcji oraz akcje dla todos.
+    │   │    │    └── types.ts      # Typy z których cała aplikacja moze korzystac dla Todo.
+    │   │    └── index.ts           # W tym pliku tworzony jest store, tworzony jest rootReducer oraz ładowane middleware.
+    ├── package.json
+    └── README.md
 
 ## Akcje dla Todo
 
@@ -29,7 +34,7 @@ W pierwszej kolejności przy pracy z Redux rozpoczynamy od przygotowania Akcji j
 
 Zadaniem akcji jest przygotowanie opisu roznych mozliwych krokow, oraz przygotowaniem odpowiednich akcji.
 
-# Stale opisujace moliwe akcje.
+### Stale opisujace moliwe akcje.
 
 ``` ts
 const CREATE_TODO = "CREATE_TODO";
@@ -39,7 +44,7 @@ const DELETE_TODO = "DELETE_TODO";
 const SELECT_TODO = "SELECT_TODO";
 ```
 
-# Typy akcji oraz akcje
+### Typy akcji oraz akcje
 
 W pierwszej kolejności przyjzymy sie akcji tworzenia nowych zadan.
 Do tego jest nam niezbedny interfejs, który opisze nam jakie elementy powinny znajdować sie w zwracanym obiekcie.
