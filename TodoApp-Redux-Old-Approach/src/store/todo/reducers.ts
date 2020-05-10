@@ -1,5 +1,4 @@
 import { v1 as uuid } from "uuid";
-import { Todo } from "../../App/App";
 import {
   CREATE_TODO,
   DELETE_TODO,
@@ -9,6 +8,7 @@ import {
   TodoActionTypes,
   TOGGLE_TODO,
 } from "./actions";
+import { Todo } from "./types";
 
 const todosInitialState: Todo[] = [
   {
@@ -48,7 +48,7 @@ export const todosReducer = (
     }
     case DELETE_TODO: {
       let { id } = action.payload;
-      return state.filter((todo) => todo.id === id);
+      return state.filter((todo) => todo.id !== id);
     }
     default:
       return state;
