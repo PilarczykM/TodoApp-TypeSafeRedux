@@ -1,18 +1,18 @@
 import { v1 as uuid } from "uuid";
 import { Todo } from "./types";
 
-const CREATE_TODO = "CREATE_TODO";
-const EDIT_TODO = "EDIT_TODO";
-const TOGGLE_TODO = "TOGGLE_TODO";
-const DELETE_TODO = "DELETE_TODO";
-const SELECT_TODO = "SELECT_TODO";
+export const CREATE_TODO = "CREATE_TODO";
+export const EDIT_TODO = "EDIT_TODO";
+export const TOGGLE_TODO = "TOGGLE_TODO";
+export const DELETE_TODO = "DELETE_TODO";
+export const SELECT_TODO = "SELECT_TODO";
 
 interface CreateTodoActionType {
   type: typeof CREATE_TODO;
   payload: Todo;
 }
 
-const createTodoActionCreator = ({
+export const createTodoActionCreator = ({
   desc,
 }: {
   desc: string;
@@ -90,3 +90,11 @@ export const selectTodoActionCreator = ({
     payload: { id },
   };
 };
+
+export type TodoActionTypes =
+  | CreateTodoActionType
+  | EditTodoActionType
+  | DeleteTodoActionType
+  | ToggleTodoActionType;
+
+export type SelectedTodoActionType = SelectTodoActionType;
