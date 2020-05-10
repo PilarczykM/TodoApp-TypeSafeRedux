@@ -1,44 +1,76 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Opis
 
-In the project directory, you can run:
+Załozeniem tego podprojektu jest opisanie jak w prawidłowy sposób powinna wyglądać struktura Redux.
+Redux w projekcie jest oparty o TypeScript
 
-### `npm start`
+Czym są Akcje, Reducery, Stor.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+W jaki sposób przygotować projekt by mozna było w łatwy i przyjemny sposob korzystać z jego pełnej mocy.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Struktura Projektu
 
-### `npm test`
+-src
+| |
+| -App
+| | |
+| | |*App.css
+| | |*App.tsx
+| |
+| -store
+| | |
+| | -todo
+| | |
+| | |*actions.ts
+| | |*types.ts
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Akcje dla Todo
 
-### `npm run build`
+W pierwszej kolejności przy pracy z Redux rozpoczynamy od przygotowania Akcji jakie powinny się znajdować.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Czym są akcje
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Zadaniem akcji jest przygotowanie opisu roznych mozliwych krokow, oraz przygotowaniem odpowiednich akcji.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Stale opisujace moliwe akcje.
 
-### `npm run eject`
+const CREATE_TODO = "CREATE_TODO";
+const EDIT_TODO = "EDIT_TODO";
+const TOGGLE_TODO = "TOGGLE_TODO";
+const DELETE_TODO = "DELETE_TODO";
+const SELECT_TODO = "SELECT_TODO";
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Typy akcji oraz akcje
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+W pierwszej kolejności przyjzymy sie akcji tworzenia nowych zadan.
+Do tego jest nam niezbedny interfejs, który opisze nam jakie elementy powinny znajdować sie w zwracanym obiekcie.
+Ten obiekt nastepnie przekazywany jest bezpośrednio do reducera, o tym nieco poźniej.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+// store/todo/actions.ts
+interface CreateTodoActionType {
+type: typeof CREATE_TODO;
+payload: Todo; // Interface opisujacy co powinno znajdować sie w ciele Todo. //store/todo/types.ts
+}
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Jak juz posiadamy przygotowany interfejs to trzeba przygotowac kreator akcji.
+Zadaniem jego jest ułatwienie piszacemu kod by odpowiednio TYP (type) i DANE (payload) zostaly przekazane w dalszej kolejności.
+Wiemy, ze tworząc nową notatke przekazujemy do createTodoActionCreator tylko opis, niczym innym nie musimy sie przejmować.
 
-## Learn More
+// store/todo/actions.ts
+const createTodoActionCreator = ({
+desc,
+}: {
+desc: string;
+}): CreateTodoActionType => {
+return {
+type: CREATE_TODO,
+payload: {
+id: uuid(),
+desc,
+isComplete: false,
+},
+};
+};
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+W dalszej kolejnosci dla kazdej stałej trzeba utworzyć odpowiednio Typy Akcji oraz Akcje.
