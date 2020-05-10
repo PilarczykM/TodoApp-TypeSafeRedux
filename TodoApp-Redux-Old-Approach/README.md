@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Opis
 
-Załozeniem tego podprojektu jest opisanie jak w prawidłowy sposób powinna wyglądać struktura Redux.
+Załozeniem tego podprojektu jest opisanie jak w prawidłowy sposób powinna wyglądać struktura [Redux](https://redux.js.org/).
 Redux w projekcie jest oparty o TypeScript
 
 Czym są Akcje, Reducery, Stor.
@@ -35,11 +35,13 @@ Zadaniem akcji jest przygotowanie opisu roznych mozliwych krokow, oraz przygotow
 
 # Stale opisujace moliwe akcje.
 
+``` ts
 const CREATE_TODO = "CREATE_TODO";
 const EDIT_TODO = "EDIT_TODO";
 const TOGGLE_TODO = "TOGGLE_TODO";
 const DELETE_TODO = "DELETE_TODO";
 const SELECT_TODO = "SELECT_TODO";
+```
 
 # Typy akcji oraz akcje
 
@@ -48,29 +50,28 @@ Do tego jest nam niezbedny interfejs, który opisze nam jakie elementy powinny z
 Ten obiekt nastepnie przekazywany jest bezpośrednio do reducera, o tym nieco poźniej.
 
 // store/todo/actions.ts
+``` ts
 interface CreateTodoActionType {
 type: typeof CREATE_TODO;
 payload: Todo; // Interface opisujacy co powinno znajdować sie w ciele Todo. //store/todo/types.ts
 }
+```
 
 Jak juz posiadamy przygotowany interfejs to trzeba przygotowac kreator akcji.
 Zadaniem jego jest ułatwienie piszacemu kod by odpowiednio TYP (type) i DANE (payload) zostaly przekazane w dalszej kolejności.
 Wiemy, ze tworząc nową notatke przekazujemy do createTodoActionCreator tylko opis, niczym innym nie musimy sie przejmować.
 
 // store/todo/actions.ts
-const createTodoActionCreator = ({
-desc,
-}: {
-desc: string;
-}): CreateTodoActionType => {
-return {
-type: CREATE_TODO,
-payload: {
-id: uuid(),
-desc,
-isComplete: false,
-},
+``` ts
+const createTodoActionCreator = ({ desc }: { desc: string }): CreateTodoActionType => {
+  return {
+    type: CREATE_TODO,
+    payload: {
+      id: uuid(),
+      desc,
+      isComplete: false,
+    },
+  };
 };
-};
-
+```
 W dalszej kolejnosci dla kazdej stałej trzeba utworzyć odpowiednio Typy Akcji oraz Akcje.
