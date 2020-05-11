@@ -112,7 +112,47 @@ export const todosReducer = (state: Todo[] = todosInitialState, action: TodoActi
 };
 ```
 <b>UWAGA</b> Każdy reducer przyjmuje dwa parametry: stan aplikacji, oraz akcje zawierającą typ i payload.
+</br>
 Stan aplikacji powinien zawsze zostać zainicjalizowany przy pierwszym rozruchu reducera.
 Akcja zawiera typ, który oczekujemy, że zostanie wykonany - najprościej mówiąc jest to jego nazwa.
 Pauload to nic innego jak dane, które oczekujemy że zostaną nadpisane w nowym stanie aplikacji.
+</br>
 <i>Później opisze przykład przejścia całego procesu na przykładzie tworzenia nowej notatki.</i>
+
+# Store
+Store przechowuje stan całej Twojej aplikacji.
+</br>
+Przed przygotowaniem store zaleca się przygotowanie odpowiednio reducerów, a do stworzenia reducerów powinno posiadać się akcje.
+</br>
+<i>Pamiętaj nie musisz wiedzieć jak w 100% wygląda twoja apliacje, akcje oraz reducery. W późniejszej fazie projektu można je rozbudowyać.</i>
+</br>
+## Tworzenie jednego reducera z wielu
+Pisze o tym ponieważ store składa się głównie z kombinacji stanów wszystkich, lub tylko jednego z twoich reducerów.
+Wykorzystuje się do tego wbudowaną funkcje z biblioteki redux (<b>createStore</b>). Każdemu z reducerów przypisujemy własną nazwę z jaką chcemy go później widzieć w stanie aplikacji.
+``` ts
+export const rootReducer = combineReducers({
+  todos: todosReducer,
+  selectedTodo: selectedTodoReducer,
+  counter: counterReducer,
+});
+```
+
+## Finalny store aplikacji
+Następnie tworzymy nasz store z wykorzystaniem funkcji z biblioteki redux (<b>createStore</b>), funkcja ta przyjmuje stan aplikacji - pochodzacy z wszystkich reducerów zainicjalizowany na początku tworzenia reducera oraz z możliwych akcji wykorzystywanych.
+``` ts
+export const store = createStore(rootReducer);
+```
+
+<i>Jeżeli chcemy wycisnąć więcej z mocy redux'a możemy wykorzystać devtoolsy oraz wstrzyknąć loggera.</i>
+Kod będzie wyglądał następująco.
+``` ts
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(logger, thunk))
+);
+```
+composeWithDevTools - zaciągamy z paczki redux-devtools-extension
+</br>
+logger - importujemy z redux-logger
+</br>
+thunk - posiadamy w redux-thunk <i>Nie bedę opisywał co robią poszczególne bajery</i>
