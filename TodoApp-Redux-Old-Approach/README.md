@@ -151,11 +151,11 @@ export const store = createStore(
   composeWithDevTools(applyMiddleware(logger, thunk))
 );
 ```
-composeWithDevTools - zaciągamy z paczki redux-devtools-extension
+<b>composeWithDevTools</b> - zaciągamy z paczki redux-devtools-extension
 </br>
-logger - importujemy z redux-logger
+<b>logger</b> - importujemy z redux-logger
 </br>
-thunk - posiadamy w redux-thunk <i>Nie bedę opisywał co robią poszczególne bajery</i>
+<b>thunk</b> - posiadamy w redux-thunk <i>Nie bedę opisywał co robią poszczególne bajery</i>
 
 # Finał
 By nasza aplikacja wiedziała, że mamy przygotowany stan przechowywany w zewnętrznym pliku musimy ją poinformować.
