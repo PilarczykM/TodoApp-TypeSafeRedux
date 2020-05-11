@@ -156,3 +156,19 @@ composeWithDevTools - zaciągamy z paczki redux-devtools-extension
 logger - importujemy z redux-logger
 </br>
 thunk - posiadamy w redux-thunk <i>Nie bedę opisywał co robią poszczególne bajery</i>
+
+# Finał
+By nasza aplikacja wiedziała, że mamy przygotowany stan przechowywany w zewnętrznym pliku musimy ją poinformować.
+Do tego wykorzystujemy paczke react-redux, która posiada metoda (<b>Provider</b>).
+</br>
+Wystarczy teraz że opleciemy naszą aplikacje w wyżej wymieniony <b>Provider</b> i przekażemy mu store. Jak wszystko zostało poprawnie zaimplementowane powinniśmy mieć już dostęp w aplikacji do naszego stanu.
+</br>
+W moim wypadku <b>Provider</b> umieściłem w index.tsx
+``` ts
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+```
