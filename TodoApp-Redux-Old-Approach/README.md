@@ -172,3 +172,14 @@ ReactDOM.render(
   document.getElementById("root")
 );
 ```
+### I co dalej?
+Jak teraz odpowiednio wykorzystać przygotowany przez nas kod do utworzenia np. nowego zadania w liście todo?
+</br>
+A nic trudnego wystarczy wykorzystać do tego hooka <b>useDispatch</b>:
+``` tsx
+const dispatch = useDispatch();
+```
+i następnie przekazać mu odpowiedni kreator akcji. W naszym wypadku będzie to <b>createTodoActionCreator</b>
+``` tsx
+dispatch(createTodoActionCreator({ desc: "New task" }));
+```
