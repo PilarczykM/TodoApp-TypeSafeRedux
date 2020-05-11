@@ -77,3 +77,42 @@ const createTodoActionCreator = ({ desc }: { desc: string }): CreateTodoActionTy
 };
 ```
 W dalszej kolejnosci dla kazdej stałej trzeba utworzyć odpowiednio Typy Akcji oraz Akcje (kreator akcji).
+
+# Reducery
+
+Reducer to funkcja, która przyjmuje stan aplikacji oraz akcję i na tej podstawie generuje nowy, zaktualizowany stan.
+
+## Todo reducer
+Reducer ten jest czystą funkcją, której zadaniem jest odpowiednie zwrócenie nowego stanu aplikacji w zależności od oczekiwanej akcji.
+Do sprawdzenia jaka akcja została wykorzystana używamy prostej metody warunku wielokrotnego wyboru switch case, gdzie główną zmienną rozpatrywaną jest typ akcji (<b>action.type</b>), a przypadkami są stworzone dla nas wcześniej stałe w postaci akcji.
+
+``` ts
+export const todosReducer = (state: Todo[] = todosInitialState, action: TodoActionTypes) => {
+  switch (action.type) {
+    case CREATE_TODO: {
+      return [...state, action.payload];
+    }
+    case EDIT_TODO: {
+      let { id, desc } = action.payload;
+      return state.map((todo) => (todo.id === id ? { ...todo, desc } : todo));
+    }
+    case TOGGLE_TODO: {
+      let { id, isComplete } = action.payload;
+      return state.map((todo) =>
+        todo.id === id ? { ...todo, isComplete: !isComplete } : todo
+      );
+    }
+    case DELETE_TODO: {
+      let { id } = action.payload;
+      return state.filter((todo) => todo.id !== id);
+    }
+    default:
+      return state;
+  }
+};
+```
+<b>UWAGA</b> Każdy reducer przyjmuje dwa parametry: stan aplikacji, oraz akcje zawierającą typ i payload.
+Stan aplikacji powinien zawsze zostać zainicjalizowany przy pierwszym rozruchu reducera.
+Akcja zawiera typ, który oczekujemy, że zostanie wykonany - najprościej mówiąc jest to jego nazwa.
+Pauload to nic innego jak dane, które oczekujemy że zostaną nadpisane w nowym stanie aplikacji.
+<i>Później opisze przykład przejścia całego procesu na przykładzie tworzenia nowej notatki.</i>
