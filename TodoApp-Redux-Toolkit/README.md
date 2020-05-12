@@ -128,3 +128,37 @@ export const {
 } = todosSlice.actions;
 ```
 W powyższym przykładzie wyciągamy z gotowego już todosSlice wszystkie przygotowane akcje i w powyższym przykładzie nadajemy im odpowiednie nazwy.
+
+## Store
+Store przechowuje stan całej Twojej aplikacji.
+</br>
+Przed przygotowaniem store zaleca się przygotowanie odpowiednio reducerów, a do stworzenia reducerów powinno posiadać się akcje.
+</br>
+<i>Pamiętaj nie musisz wiedzieć jak w 100% wygląda twoja apliacje, akcje oraz reducery. W późniejszej fazie projektu można je rozbudowyać.</i>
+
+### Tworzenie jednego reducera z wielu
+Pisze o tym ponieważ store składa się głównie z kombinacji stanów wszystkich, lub tylko jednego z reducerów.
+``` ts
+const reducer = {
+  todos: todosSlice.reducer,
+  selectedTodo: selectedTodoSlice.reducer,
+  counter: counterSlice.reducer,
+};
+```
+### Finalny store aplikacji
+Następnie tworzymy nasz store z wykorzystaniem funkcji z biblioteki @reduxjs/toolkit <b>(configureStore)</b>, funkcja ta przyjmuje stan aplikacji - pochodzacy z wszystkich reducerów zainicjalizowany na początku tworzenia reducera oraz z możliwych akcji wykorzystywanych.
+
+``` ts
+export const store = configureStore({
+  reducer
+});
+```
+<i>Jeżeli chcemy wycisnąć więcej z mocy redux'a możemy wykorzystać devtoolsy oraz wstrzyknąć loggera. Kod będzie wyglądał następująco.</i>
+``` ts
+const middlewares = [...getDefaultMiddleware(), logger];
+export const store = configureStore({
+  reducer,
+  middlewares,
+});
+```
+Przekazujemy obiekt middlewares z defaultowo zainicjalizowanym redux devtools oraz thunk i doczepiam do niego logger, logujacy prace reduxa w konsoli.
